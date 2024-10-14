@@ -17,7 +17,7 @@ services:
       dockerfile: config-injection/Dockerfile
       target: dev_project
     env_file:
-      - config-injection/.env
+      - config-injection/.env.dev
     image: proj-injection-dev:latest
     hostname: proj-injection
     container_name: proj-injection
