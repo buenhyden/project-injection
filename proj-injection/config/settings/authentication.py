@@ -1,0 +1,27 @@
+"""authentication.
+
+Login URL
+LOGOUT_URL
+AUTH_PASSWORD_VALIDATORS
+"""
+
+# Login URL
+LOGIN_URL = "/api/log-in/"
+LOGOUT_URL = "/api/log-out/"
+# Password validation
+# https://docs.djangoproject.com/en/5.1/ref/settings/#auth-password-validators
+
+AUTH_PASSWORD_VALIDATORS = [
+    {
+        "NAME": "django.contrib.auth.password_validation.UserAttributeSimilarityValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.MinimumLengthValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.CommonPasswordValidator",
+    },
+    {
+        "NAME": "django.contrib.auth.password_validation.NumericPasswordValidator",
+    },
+]

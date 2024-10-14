@@ -1,0 +1,129 @@
+# Use root/example as user/password credentials
+x-default-logging: &logging
+  driver: "json-file"
+  options:
+    max-size: "5m"
+    max-file: "2"
+
+networks:
+  net-project:
+    name: net-project
+    driver: bridge
+
+services:
+  release-proj-nginx:
+    build:
+      context: .
+      dockerfile: nginx/Dockerfile
+    image: proj-nginx:latest
+    container_name: release-proj-nginx
+    hostname: release-proj-nginx
+    restart: unless-stopped
+    ports:
+      - ${HTTP_HOST_PORT}:${HTTP_PORT}
+      - ${HTTPS_HOST_PORT}:${HTTPS_PORT}
+    networks:
+      - net-project
+    environment:
+      - TZ=${DEFAULT_TIMEZONE}
+    logging: *logging
+    depends_on:
+      - release-proj-injection
+  release-proj-injection:
+    build:
+      context: .
+      dockerfile: config-injection/Dockerfile
+      target: release_project
+    # env_file:
+    #   - config-injection/.env.release
+    image: proj-injection:latest
+    hostname: release-proj-injection
+    container_name: release-proj-injection
+    restart: unless-stopped
+    networks:
+      - net-project
+    expose:
+      - ${DEFAULT_PYTHON_DJANGO_PORT}
+    # ports:
+    #   - ${DEFAULT_PYTHON_DJANGO_HOST_PORT}:${DEFAULT_PYTHON_DJANGO_PORT}
+    command: gunicorn config.wsgi:application --bind 0.0.0.0:8000
+    environment:
+      - TZ=${DEFAULT_TIMEZONE}
+    logging: *logging
+    depends_on:
+      - release-proj-postgres
+      - release-proj-redis
+  # release-celery-beat:
+  #   build:
+  #     context: .
+  #     dockerfile: config-injection/Dockerfile
+  #     target: release_celery
+  #   image: proj-injection:latest
+  #   hostname: release-celery-beat
+  #   container_name: release-celery-beat
+  #   restart: unless-stopped
+  #   networks:
+  #     - net-project
+  #   expose:
+  #     - ${DEFAULT_PYTHON_DJANGO_PORT}
+  #   command: celery -A config beat --loglevel=info
+  #   environment:
+  #     - TZ=${DEFAULT_TIMEZONE}
+  #   logging: *logging
+  #   depends_on:
+  #     - release-proj-redis
+  release-celery-worker:
+    build:
+      context: .
+      dockerfile: config-injection/Dockerfile
+      target: release_celery
+    image: proj-injection:latest
+    hostname: release-celery-worker
+    container_name: release-celery-worker
+    restart: unless-stopped
+    networks:
+      - net-project
+    expose:
+      - ${DEFAULT_PYTHON_DJANGO_PORT}
+    command: celery -A config worker --loglevel=info
+    environment:
+      - TZ=${DEFAULT_TIMEZONE}
+    logging: *logging
+    depends_on:
+      - release-proj-redis
+
+  release-proj-postgres:
+    image: docker.io/bitnami/postgresql:latest
+    restart: unless-stopped
+    container_name: release-proj-postgres
+    hostname: release-proj-postgres
+    expose:
+      - ${POSTGRES_PORT}
+    ports:
+      - ${POSTGRES_PROJECT_HOST_PORT}:${POSTGRES_PORT}
+    environment:
+      - TZ=${DEFAULT_TIMEZONE}
+      - POSTGRESQL_POSTGRES_PASSWORD=${RDBMS_ROOT_PASSWORD}
+      - POSTGRESQL_USERNAME=${DEFAULT_USERNAME}
+      - POSTGRESQL_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRESQL_MAX_CONNECTIONS=500
+      - POSTGRESQL_USERNAME_CONNECTION_LIMIT=200
+      - POSTGRESQL_POSTGRES_CONNECTION_LIMIT=200
+    networks:
+      - net-project
+    logging: *logging
+  release-proj-redis:
+    image: docker.io/bitnami/redis:latest
+    restart: unless-stopped
+    container_name: release-proj-redis
+    hostname: release-proj-redis
+    ports:
+      - "${REDIS_PROJECT_HOST_PORT}:${REDIS_PORT}"
+    expose:
+      - ${REDIS_PORT}
+    networks:
+      - net-project
+    logging: *logging
+    environment:
+      - TZ=${DEFAULT_TIMEZONE}
+      - REDIS_PASSWORD=${REDIS_PASSWORD}

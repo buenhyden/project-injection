@@ -1,0 +1,81 @@
+{
+  "terminal.integrated.shell.osx": "/usr/bin/zsh",
+  "files.autoSave": "afterDelay",
+  "editor.formatOnSave": true,
+  "editor.wordWrap": "on",
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit",
+    "source.organizeImports": "explicit",
+    "source.fixAll.markdownlint": "explicit"
+  },
+  "python.languageServer": "Pylance",
+  "python.terminal.activateEnvInCurrentTerminal": true,
+  "python.analysis.autoImportCompletions": true,
+  "python.autoComplete.extraPaths": [],
+  "python.analysis.extraPaths": [],
+  "python.experiments.optInto": [],
+  "autoDocstring.includeExtendedSummary": true,
+  "autoDocstring.includeName": true,
+  "autoDocstring.generateDocstringOnEnter": true,
+  "ruff.lint.preview": true,
+  "local-history.enabled": 2,
+  "local-history.daysLimit": 30,
+  "local-history.maxDisplay": 15,
+  "markdownlint.config": {
+    "default": true
+  },
+  "[markdown]": {
+    "editor.defaultFormatter": "DavidAnson.vscode-markdownlint",
+    "editor.formatOnSave": true,
+    "editor.formatOnPaste": true
+  },
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.quickSuggestions": {
+      "strings": true
+    },
+    "editor.suggest.insertMode": "replace"
+  },
+  "[jsonc]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "[yaml]": {
+    "editor.defaultFormatter": "redhat.vscode-yaml",
+    "editor.formatOnType": true,
+    "editor.codeLens": true
+  },
+  "[python]": {
+    "editor.defaultFormatter": "charliermarsh.ruff",
+    "editor.formatOnType": true,
+    "editor.formatOnSave": true
+  },
+  "[html]": {
+    "editor.formatOnSave": true,
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "evenBetterToml.formatter.alignComments": true,
+  "evenBetterToml.formatter.alignEntries": true,
+  "evenBetterToml.formatter.arrayAutoCollapse": true,
+  "evenBetterToml.formatter.arrayAutoExpand": true,
+  "evenBetterToml.formatter.arrayTrailingComma": true,
+  "evenBetterToml.formatter.compactEntries": true,
+  "evenBetterToml.formatter.compactInlineTables": true,
+  "evenBetterToml.formatter.compactArrays": true,
+  "evenBetterToml.formatter.indentEntries": true,
+  "evenBetterToml.formatter.indentTables": true,
+  "evenBetterToml.formatter.inlineTableExpand": true,
+  "evenBetterToml.formatter.reorderArrays": true,
+  "evenBetterToml.formatter.reorderKeys": true,
+  "evenBetterToml.formatter.trailingNewline": true,
+  "yaml.customTags": [],
+  "yaml.format.proseWrap": "always",
+  "yaml.trace.server": "verbose",
+  "yaml.schemaStore.enable": true,
+  "yaml.schemas": {
+    "url": "globPattern",
+    "Kubernetes": "globPattern"
+  },
+  "yaml.maxItemsComputed": 7500
+}

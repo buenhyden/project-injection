@@ -1,0 +1,123 @@
+# poetry 설정
+[tool.poetry]
+    authors     =["hyunyoun <chochyjj@gmail.com>"]
+    description ="사출기 관리 시스템을 위한 RESTful API를 설계하고 구현한다."
+    license     ="MIT"
+    name        ="proj-injection"
+    package-mode=false
+    readme      ="README.md"
+    version     ="0.1.0"
+    # Python Package Dependencies
+    [tool.poetry.dependencies]
+        celery                       ="^5.4.0"
+        django                       ="^5.1.2"
+        django-celery-beat           ="^2.7.0"
+        django-celery-results        ="^2.5.1"
+        django-cors-headers          ="^4.4.0"
+        djangorestframework          ="^3.15.2"
+        djangorestframework-simplejwt="^5.3.1"
+        drf-yasg                     ="^1.21.7"
+        markdown                     ="^3.7"
+        pre-commit                   ="^4.0.1"
+        psycopg2                     ="^2.9.9"
+        pytest                       ="^8.3.3"
+        python                       ="^3.12"
+        python-dotenv                ="^1.0.1"
+        redis                        ="^5.1.1"
+        requests                     ="^2.32.3"
+        ruff                         ="^0.6.9"
+        setuptools                   ="^75.1.0"
+    gunicorn = "^23.0.0"
+[tool.ruff]
+    # Lint and Code Formatter
+    # Ruff : https://github.com/astral-sh/ruff
+    # Exclude a variety of commonly ignored directories.
+    exclude=[
+        ".bzr",
+        ".direnv",
+        ".eggs",
+        ".git",
+        ".git-rewrite",
+        ".hg",
+        ".ipynb_checkpoints",
+        ".mypy_cache",
+        ".nox",
+        ".pants.d",
+        ".pyenv",
+        ".pytest_cache",
+        ".pytype",
+        ".ruff_cache",
+        ".svn",
+        ".tox",
+        ".venv",
+        ".vscode",
+        "__pypackages__",
+        "_build",
+        "buck-out",
+        "build",
+        "dist",
+        "node_modules",
+        "site-packages",
+        "venv",
+    ]
+
+    # Same as Black.
+    indent-width=4
+    line-length =88
+
+    # Assume Python 3.8
+    target-version="py312"
+
+    [tool.ruff.lint.pydocstyle]
+        convention="google"
+[tool.ruff.lint]
+    extend-select=[
+        "D",  # pydocstyle
+        "UP", # pyupgrade
+    ]
+    # Enable Pyflakes (`F`) and a subset of the pycodestyle (`E`)  codes by default.
+    # Unlike Flake8, Ruff doesn't enable pycodestyle warnings (`W`) or
+    # McCabe complexity (`C901`) by default.
+    ignore=[]
+    select=["E4", "E7", "E9", "F"]
+
+    # Allow fix for all enabled rules (when `--fix`) is provided.
+    fixable  =["ALL"]
+    unfixable=[]
+
+    # Allow unused variables when underscore-prefixed.
+    dummy-variable-rgx="^(_+|(_+[a-zA-Z0-9_]*[a-zA-Z0-9]+?))$"
+
+[tool.ruff.format]
+    # Like Black, use double quotes for strings.
+    quote-style="double"
+
+    # Like Black, indent with spaces, rather than tabs.
+    indent-style="space"
+
+    # Like Black, respect magic trailing commas.
+    skip-magic-trailing-comma=false
+
+    # Like Black, automatically detect the appropriate line ending.
+    line-ending="auto"
+
+    # Enable auto-formatting of code examples in docstrings. Markdown,
+    # reStructuredText code/literal blocks and doctests are all supported.
+    #
+    # This is currently disabled by default, but it is planned for this
+    # to be opt-out in the future.
+    docstring-code-format=false
+
+    # Set the line length limit used when formatting code snippets in
+    # docstrings.
+    #
+    # This only has an effect when the `docstring-code-format` setting is
+    # enabled.
+    docstring-code-line-length="dynamic"
+
+[tool.ruff.lint.flake8-quotes]
+    docstring-quotes="double"
+
+[build-system]
+    build-backend="poetry.core.masonry.api"
+    requires     =["poetry-core"]

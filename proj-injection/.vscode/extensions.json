@@ -1,0 +1,24 @@
+{
+  "recommendations": [
+    "ms-python.debugpy",
+    "ms-python.python",
+    "esbenp.prettier-vscode",
+    "humao.rest-client",
+    "aron-bond.better-comments",
+    "charliermarsh.ruff",
+    "aron-bond.better-comments",
+    "njpwerner.autodocstring",
+    "ldez.ignore-files",
+    "emilast.logfilehighlighter",
+    "xyz.local-history",
+    "donjayamanne.githistory",
+    "waderyan.gitblame",
+    "mhutchie.git-graph",
+    "huizhou.githd",
+    "codezombiech.gitignore",
+    "naumovs.color-highlight",
+    "davidanson.vscode-markdownlint",
+    "redhat.vscode-yaml",
+    "tamasfe.even-better-toml"
+  ]
+}
